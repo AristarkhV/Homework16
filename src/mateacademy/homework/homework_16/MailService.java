@@ -8,13 +8,15 @@ import java.util.Collections;
 import java.util.function.Consumer;
 
 public class MailService<T> implements Consumer<MessageInterface<T>>{
-    private Map<String, List<T>> mailBox = new HashMap<>(){
-        @Override
-        public List<T> get(Object key) {
-            List<T> emptyList = Collections.emptyList();
-            return getOrDefault(key, emptyList);
-        }
-    };
+    Map<String, List<T>> mailBox;
+    {
+        mailBox = new HashMap<>() {
+            @Override
+            public List<T> get(Object key) {
+                return getOrDefault(key, Collections.emptyList());
+            }
+        };
+    }
 
     @Override
     public void accept(MessageInterface<T> messageInterface) throws NullPointerException{
